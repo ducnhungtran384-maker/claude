@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(du -sh d:/claude/*)",
-      "Bash(rm -f d:/claude/tmp/sed)",
-      "Bash(rm -f \"d:/claude/.claude-attachments/1773887069772-锦成哥 25.4、5利他型朋友圈报告2000字（AI原版）.docx\" \"d:/claude/.claude-attachments/1773887263427-锦成哥 25.4、5利他型朋友圈报告2000字（AI原版）.docx\" \"d:/claude/.claude-attachments/1773887270338-锦成哥 25.4、5利他型朋友圈报告2000字（AI原版）.docx\")"
-    ]
-  }
-}

@@ -1,3 +1,0 @@
-[0404/125456.712:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: 拒绝访问。 (0x5)
-[24112:31620:0404/125457.053:FATAL:mojo\public\cpp\platform\platform_channel.cc:170] Check failed: . : 拒绝访问。 (0x5)
-[0404/125457.054:ERROR:third_party\crashpad\crashpad\client\crashpad_client_win.cc:154] crash server failed to launch
