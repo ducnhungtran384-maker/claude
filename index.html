@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI实战营第二节课·道法术器拆解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .subtitle p {
+            margin: 5px 0;
+        }
+
+        .content {
+            padding: 30px 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 1em;
+        }
+
+        .subsection {
+            margin: 20px 0;
+        }
+
+        .subsection h3 {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subsection p {
+            margin-bottom: 10px;
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 6px 0;
+            line-height: 1.5;
+        }
+
+        .quote-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 12px 18px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .action-list {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .action-list h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .action-item {
+            background: white;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            font-size: 0.95em;
+        }
+
+        .action-item strong {
+            color: #667eea;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+            font-size: 0.9em;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .quotes-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            margin: 30px -40px -30px -40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .quotes-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .quote-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid white;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+        /* 粒子背景画布 */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 音频播放器样式 - 唱片效果 */
+        .audio-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .vinyl-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .vinyl-disc {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center,
+                #1a1a1a 0%,
+                #1a1a1a 20%,
+                #2d2d2d 20%,
+                #2d2d2d 25%,
+                #1a1a1a 25%,
+                #1a1a1a 30%,
+                #2d2d2d 30%,
+                #2d2d2d 35%,
+                #1a1a1a 35%,
+                #1a1a1a 100%);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5),
+                        inset 0 0 20px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .vinyl-disc:hover {
+            transform: scale(1.05);
+        }
+
+        .vinyl-disc.playing {
+            animation: spin 3s linear infinite;
+        }
+
+        .vinyl-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .vinyl-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #1a1a1a;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .vinyl-container:hover .play-icon {
+            opacity: 1;
+        }
+
+        .vinyl-disc.playing + .play-icon {
+            opacity: 0 !important;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 悬浮动画增强 */
+        .tool-card {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .tool-card:nth-child(2) { animation-delay: 0.5s; }
+        .tool-card:nth-child(3) { animation-delay: 1s; }
+        .tool-card:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 标题闪烁效果 */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.6); }
+        }
+
+        header h1 {
+            animation: glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景画布 -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- 音频播放器 - 唱片效果 -->
+    <div class="audio-player" onclick="toggleVinyl()">
+        <div class="vinyl-container">
+            <div class="vinyl-disc" id="vinyl-disc">
+                <div class="vinyl-center">
+                    <div class="vinyl-label"></div>
+                </div>
+            </div>
+            <div class="play-icon" id="play-icon">▶️</div>
+        </div>
+        <audio id="audio-element" src="background-music.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+        // 粒子系统
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // 连接粒子
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.section, .subsection, .action-list').forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
+            });
+        });
+
+        // 音频控制 - 唱片效果
+        let audioElement = document.getElementById('audio-element');
+        let vinylDisc = document.getElementById('vinyl-disc');
+        let playIcon = document.getElementById('play-icon');
+
+        function toggleVinyl() {
+            if (audioElement.paused) {
+                audioElement.play();
+                vinylDisc.classList.add('playing');
+                playIcon.textContent = '⏸️';
+            } else {
+                audioElement.pause();
+                vinylDisc.classList.remove('playing');
+                playIcon.textContent = '▶️';
+            }
+        }
+
+        audioElement.addEventListener('ended', () => {
+            vinylDisc.classList.remove('playing');
+            playIcon.textContent = '▶️';
+        });
+    </script>
+    <div class="container">
+        <header>
+            <h1>AI实战营第二节课·道法术器拆解</h1>
+            <div class="subtitle">
+                <p><strong>身份</strong>: AI实战营导师，教大学生用AI提效、赚钱、搞关系</p>
+                <p>课程付费1798元，已有1798名学员</p>
+                <p>核心理念: <strong>一鱼多吃</strong> —— 每个动作都要有多重价值（钱+关系+技能+影响力）</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- 道 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🌟</span>
+                    道（底层世界观，刻进骨子里）
+                </h2>
+
+                <div class="subsection">
+                    <h3>站在巨人的肩膀上</h3>
+                    <p>我一直在强调一个事：站在巨人的肩膀上。这不是一句鸡汤，这是做AI的底层方法。</p>
+                    <p>你看我怎么做AI分身的？我去看小龙虾（Claude的开源项目），它是GitHub上星星最多的项目，我就去提取它的记忆机制。但我不能照搬，因为你们的额度烧不起。所以我让我的Claude Code去GitHub和X上找大佬们分享的配置，看他们怎么设计架构。</p>
+                    <p>然后我把需求告诉AI：要有小龙虾那么强的记忆，但又要省token。AI就自动生成了雏形，之后通过实践不断优化，变成现在你们用的版本。</p>
+                    <p>这个方法适用于一切。你要做任何东西，先去看互联网上有没有人做过、分享过经验。不是让你抄，是让你理解底层逻辑，然后结合自己的需求去改造。</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>压缩和对齐贯穿一切</h3>
+                    <p>我们跟AI聊天，本质上在做两件事：对齐和压缩。</p>
+                    <p>什么叫对齐？你学数学的极限概念，一开始不懂，你的认知跟教材没对齐。你去问AI，AI知道正确答案，你们不断交流，最后你懂了——这就是对齐。</p>
+                    <p>但这个过程可能花了几千字、上万字的对话。这时候你要做什么？压缩。把最终的结论、核心的理解提炼出来，存成文件。可能聊了5万字，其中4.8万字都是磨损，你只需要保留2000字的精华。</p>
+                    <p>这样下次开新对话，你直接把这个文件添加进去，AI就能延续之前的理解。这就是突破上下文限制的方法。</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>一鱼多吃</h3>
+                    <p>你做的每一个动作都要有多重价值。</p>
+                    <p>比如你帮同学解决了一个AI问题，你不能白帮。你要：</p>
+                    <ul>
+                        <li>把解决过程记录下来，沉淀成工作流（技能）</li>
+                        <li>让对方发个朋友圈感谢你（影响力）</li>
+                        <li>收个10块20块服务费（钱）</li>
+                        <li>跟对方建立连接（关系）</li>
+                    </ul>
+                    <p>一个动作，四个维度的收获。这才叫高效。</p>
+                </div>
+            </div>
+
+            <!-- 法 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📚</span>
+                    法（方法论，很少变）
+                </h2>
+
+                <div class="subsection">
+                    <h3>信息分析的通用流程</h3>
+                    <p>不管你是做自媒体、写论文、还是做任何研究，流程都是一样的：</p>
+                    <ul>
+                        <li><strong>调研</strong> - 找对标、找参考资料</li>
+                        <li><strong>清洗</strong> - 去掉垃圾数据、脏数据</li>
+                        <li><strong>拆解</strong> - 看哪些部分可以学习</li>
+                        <li><strong>生成</strong> - 根据自己情况生成方案</li>
+                    </ul>
+                    <p>这套方法是学术领域的信息分析，但它适用于一切。你调研了100个案例，筛选出10个最好的，拆解它们，最后生成你自己的方案。</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>道法术器分层思维</h3>
+                    <ul>
+                        <li><strong>道</strong>：底层规律，不会变。比如"万事问AI"、"站在巨人肩膀上"</li>
+                        <li><strong>法</strong>：方法论，很少变。比如信息分析流程、压缩对齐</li>
+                        <li><strong>术</strong>：具体策略，经常变。比如"重要的话说三遍"这种提示词技巧</li>
+                        <li><strong>器</strong>：工具本身，随时变。今天用Claude，明天可能换GPT</li>
+                    </ul>
+                    <p>越往上越保值，越往下越容易过时。你要把精力放在学道和法上，术和器知道就行。</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>为什么要AI分身+拆解器</h3>
+                    <p>AI分身让AI记住你是谁、你的目标、你的风格。拆解器帮你从任何内容中提炼道法术器。</p>
+                    <p>两个结合起来的威力在哪？当你用拆解器拆解完一个大佬的分享，AI会根据你的情况告诉你：</p>
+                    <ul>
+                        <li>先记住哪几个点</li>
+                        <li>今天马上能做什么</li>
+                        <li>怎么关联到你现有的系统</li>
+                    </ul>
+                    <p>这就是个性化学习。同样的内容，不同人学到的东西应该不一样，因为每个人的基础和目标不同。</p>
+                </div>
+            </div>
+
+            <!-- 术 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">⚡</span>
+                    术（现在直接用）
+                </h2>
+
+                <div class="action-list">
+                    <h3>AI分身安装步骤</h3>
+                    <div class="action-item">
+                        <strong>1.</strong> 下载安装包，解压到工作区文件夹
+                    </div>
+                    <div class="action-item">
+                        <strong>2.</strong> 双击read me文档，右键"添加至AI对话"
+                    </div>
+                    <div class="action-item">
+                        <strong>3.</strong> 回答AI的问题：你是谁、做什么、目标是什么、目前困难是什么
+                    </div>
+                    <div class="action-item">
+                        <strong>4. 关键</strong>：每个问题至少回答1000字，越详细AI越了解你
+                    </div>
+                    <div class="action-item">
+                        <strong>5.</strong> 用语音输入（豆包免费20小时），效率提升10倍
+                    </div>
+                </div>
+
+                <div class="action-list">
+                    <h3>道法术器拆解器使用</h3>
+                    <div class="action-item">
+                        <strong>1.</strong> 安装方法同上，解压后添加到对话
+                    </div>
+                    <div class="action-item">
+                        <strong>2.</strong> 把要拆解的文档放到工作区，告诉AI文件名
+                    </div>
+                    <div class="action-item">
+                        <strong>3.</strong> 直接说"用道法术器拆解[文件名]"
+                    </div>
+                    <div class="action-item">
+                        <strong>4.</strong> AI会自动分层提炼：道法厚写（段落），术器薄写（列表）
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>提示词小技巧</h3>
+                    <ul>
+                        <li><strong>重要的事说三遍</strong>：AI遵循概率会大幅提升</li>
+                        <li><strong>明确告诉AI"记住这个想法"</strong>：否则它可能只是嘴上答应，没写进文件</li>
+                        <li><strong>PUA AI有用</strong>："下次再这样我就删了你" - 真的有一点用</li>
+                        <li><strong>检查文件</strong>：AI说"记住了"，你要看它有没有真的写进文档，没写就是在骗你</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>从GitHub下载skill</h3>
+                    <ul>
+                        <li>复制GitHub项目链接</li>
+                        <li>发给牛马AI，说"帮我落地这个skill"或"帮我下载这个skill"</li>
+                        <li>AI自动下载安装，你直接用</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>节点纯净度影响AI智商</h3>
+                    <p>去king0.cc测试你的节点，如果是黄色或红色，AI会变笨。</p>
+                    <p><strong>解决方法</strong>：</p>
+                    <ul>
+                        <li>关键词：住宅IP、跨境、链式代理</li>
+                        <li>去YouTube搜这三个关键词，100%能解决</li>
+                        <li>成本：一个月60块左右</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 器 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🛠️</span>
+                    器（知道就行，会变的）
+                </h2>
+
+                <div class="tools-grid">
+                    <div class="tool-card">Claude Code<br><small>最强AI编程工具</small></div>
+                    <div class="tool-card">牛马AI<br><small>中转站</small></div>
+                    <div class="tool-card">豆包<br><small>免费语音输入</small></div>
+                    <div class="tool-card">拆解器skill<br><small>内容提炼</small></div>
+                    <div class="tool-card">AI分身skill<br><small>记忆系统</small></div>
+                    <div class="tool-card">GitHub<br><small>开源项目</small></div>
+                    <div class="tool-card">Magic/VPS<br><small>科学上网</small></div>
+                </div>
+            </div>
+
+            <!-- 行动清单 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">✅</span>
+                    怎么最大化吸收
+                </h2>
+
+                <div class="action-list">
+                    <h3>优先记住</h3>
+                    <div class="action-item">
+                        <strong>站在巨人肩膀上</strong> - 任何时候都先去看别人怎么做的
+                    </div>
+                    <div class="action-item">
+                        <strong>压缩和对齐</strong> - 跟AI聊天的本质，也是学习的本质
+                    </div>
+                    <div class="action-item">
+                        <strong>一鱼多吃</strong> - 每个动作都要有多重价值
+                    </div>
+                </div>
+
+                <div class="action-list">
+                    <h3>今天就能做的三件事</h3>
+                    <div class="action-item">
+                        <strong>1. 装好AI分身</strong> - 认真回答问题，每个至少1000字，用语音输入
+                    </div>
+                    <div class="action-item">
+                        <strong>2. 装好拆解器</strong> - 找一篇文章/视频逐字稿，拆解一遍试试
+                    </div>
+                    <div class="action-item">
+                        <strong>3. 发朋友圈</strong> - 简单发几张截图，展示你在学AI，不用多说
+                    </div>
+                </div>
+
+                <div class="action-list">
+                    <h3>关联你已有的</h3>
+                    <div class="action-item">
+                        <strong>如果你要考研/保研</strong>：用AI分身记住你的专业知识，用拆解器提炼论文和课程
+                    </div>
+                    <div class="action-item">
+                        <strong>如果你要赚钱</strong>：学会PPT skill（下节课教），一个月赚几百到上千很正常
+                    </div>
+                    <div class="action-item">
+                        <strong>如果你要搞关系</strong>：参加讲座后，用拆解器做笔记，做成网页发群里，所有人都会加你
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 金句 -->
+        <div class="quotes-section">
+            <h2>💎 金句</h2>
+            <div class="quote-item">站在巨人的肩膀上，这不是鸡汤，这是做AI的底层方法。</div>
+            <div class="quote-item">压缩和对齐贯穿一切。你跟AI聊天，本质就是在做这两件事。</div>
+            <div class="quote-item">一鱼多吃。你做的每一个动作都要有多重价值：钱、关系、技能、影响力。</div>
+            <div class="quote-item">AI说"记住了"，你要看它有没有真的写进文档。没写就是在骗你。</div>
+            <div class="quote-item">道法术器：越往上越保值，越往下越容易过时。</div>
+            <div class="quote-item">你花了1798学这个课，这只是开始。把吃喝玩乐的钱省一点投到AI上，以后百倍赚回来。</div>
+            <div class="quote-item">不要只局限于搞学历。你学会AI技能，可以赚钱、搞关系、扩影响力，这些反过来让你学历之路更顺。</div>
+            <div class="quote-item">装逼会损害影响力。但无形中透露你在某个领域很厉害，这叫提供价值。</div>
+            <div class="quote-item">全中国几千万人用magic，监狱装不下。不要被吓到，锻炼你的逻辑思维。</div>
+            <div class="quote-item">节点纯净度会影响AI智商。这是一个巨大的信息差。</div>
+        </div>
+    </div>
+</body>
+</html>
