@@ -1,0 +1,15 @@
+# Local workspace and attachments
+.claude/
+.claude-attachments/
+tmp/
+
+# Unrelated project artifacts and data
+career-planning-ai/
+infographic/
+projects/
+py/
+skills/
+slides/
+
+# Unrelated docs that do not need to be public for the site
+docs/local-ai-deployment-guide.md
