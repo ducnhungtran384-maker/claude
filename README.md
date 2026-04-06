@@ -1,29 +1,41 @@
-# Claude 职业规划项目
+# Claude 项目展示
 
 [![GitHub Pages](https://img.shields.io/badge/demo-online-brightgreen)](https://ducnhungtran384-maker.github.io/claude/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> 基于 Claude AI 的职业规划咨询案例集 - 从迷茫到清晰的完整规划过程
+> 基于 Claude AI 的项目集合 - 职业规划咨询与 AI 实战课程
+
+## ✨ 在线预览
+
+### 📋 职业规划报告
+🔗 **访问链接**: https://ducnhungtran384-maker.github.io/claude/
+
+完整的交互式职业规划报告，包含：
+- 10维度筹码评估体系
+- 多路径规划方案
+- 精美的渐变背景和流畅动画
+- 响应式设计，支持移动端
+
+### 🎓 AI 实战课程演示
+🔗 **访问链接**: https://ducnhungtran384-maker.github.io/claude/presentation.html
+
+AI 实战营课程内容拆解演示文稿，包含：
+- 39 张精美幻灯片
+- 霓虹渐变视觉效果
+- 粒子背景动画
+- 完整的课程核心内容与方法论
+
+---
 
 ## 🎯 项目概述
 
-这是一个使用 Claude Code 和 Claude Opus 4.6 完成的职业规划咨询项目，展示了 AI 辅助职业规划的完整流程。项目包含真实的咨询案例、系统化的分析方法和可视化的呈现方式。
+这是一个使用 Claude Code 和 Claude Opus 4.6 完成的项目集合，展示了 AI 在职业规划咨询和课程内容制作中的应用。
 
 **核心案例**：中山大学临床医学大一学生转专业（软件工程）规划
 - 📊 10维度筹码评估
 - 🎯 多路径规划方案
 - ⚠️ 风险评估与应对
 - 📅 四年完整时间轴
-
-## ✨ 在线预览
-
-🔗 **GitHub Pages**: https://ducnhungtran384-maker.github.io/claude/
-
-直接访问查看完整的交互式规划报告，包含：
-- 精美的渐变背景和流畅动画
-- 完整的规划分析报告
-- 逐轮展示的咨询对话
-- 响应式设计，支持移动端
 
 ## 📁 项目内容
 
