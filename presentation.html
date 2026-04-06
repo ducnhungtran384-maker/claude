@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学生AI破局提效课·开营仪式</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
+            cursor: none;
+            scroll-behavior: smooth;
+        }
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        body::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00f5ff, #ff00ff);
+            border-radius: 4px;
+        }
+        #cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.15s ease-out;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.6) 0%, rgba(255, 0, 255, 0.3) 50%, transparent 100%);
+            box-shadow:
+                0 0 40px rgba(0, 245, 255, 0.8),
+                0 0 80px rgba(255, 0, 255, 0.4);
+            filter: blur(2px);
+        }
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.9), rgba(255, 0, 255, 0.6));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: trailFade 0.8s ease-out forwards;
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
+        }
+        @keyframes trailFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+        }
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: float 20s infinite;
+            opacity: 0.6;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-50px); }
+            75% { transform: translateY(-100px) translateX(100px); }
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            width: 100%;
+        }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            animation: bgPulse 4s ease-in-out infinite;
+        }
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f5ff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: glow 2s ease-in-out infinite alternate, slideInUp 0.8s ease-out;
+            position: relative;
+        }
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00f5ff, #ff00ff);
+            animation: expandLine 1s ease-out 0.5s forwards;
+        }
+        @keyframes expandLine {
+            to { width: 80%; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.8)); }
+        }
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: #ffeb3b;
+            margin: 3rem 0 1.5rem;
+            text-shadow: 0 0 20px rgba(255, 235, 59, 0.5);
+        }
+        h3 {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: #00f5ff;
+            margin: 2rem 0 1rem;
+        }
+        p, li {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            margin: 1rem auto;
+        }
+        ul { list-style: none; padding-left: 0; }
+        li {
+            padding-left: 2rem;
+            position: relative;
+            margin: 0.8rem 0;
+        }
+        li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffeb3b;
+            font-size: 1.5rem;
+        }
+        .content-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 245, 255, 0.2);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 8px 32px rgba(0, 245, 255, 0.2); }
+            50% { box-shadow: 0 8px 32px rgba(255, 0, 255, 0.4); }
+        }
+        .highlight {
+            color: #ffeb3b;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+        }
+        .card {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 245, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .card:hover::before {
+            left: 100%;
+        }
+        .card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 245, 255, 0.4);
+            border-color: rgba(0, 245, 255, 0.6);
+        }
+        .action-list {
+            background: rgba(255, 235, 59, 0.1);
+            border-left: 4px solid #ffeb3b;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00f5ff 0%, #ff00ff 100%);
+            transition: width 0.1s ease;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <div id="particles"></div>
+    <div class="progress" id="progress"></div>
+
+    <div class="slide">
+        <h1>大学生AI破局提效课</h1>
+        <h2>开营仪式·道法术器拆解</h2>
+        <p style="font-size: 1.5rem; margin-top: 2rem; color: #00f5ff;">AI时代，你的竞争对手不是AI，是那些会用AI的人</p>
+    </div>
+
+    <div class="slide">
+        <h2>【道】底层认知与价值观</h2>
+        <div class="content-box">
+            <h3>AI时代的生存法则</h3>
+            <p>我们正站在一个历史转折点上。AI不是工具，是生存方式的革命。就像当年互联网刚出现时，有人说"我不需要电脑"，现在回头看，那些人错过了整个时代。</p>
+            <p class="highlight">今天AI也一样，你不用，不代表它不存在，只代表你会被用它的人甩开。</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>认知的三个层次</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>第一层：工具思维</h3>
+                <p>把AI当计算器，问一句答一句，用完就走。</p>
+                <p class="highlight">90%的人停留在这里</p>
+            </div>
+            <div class="card">
+                <h3>第二层：助手思维</h3>
+                <p>把AI当助理，让它帮你完成具体任务。</p>
+                <p class="highlight">开始有收益的层次</p>
+            </div>
+            <div class="card">
+                <h3>第三层：协作思维</h3>
+                <p>把AI当合伙人，和它一起思考、迭代、创造。</p>
+                <p class="highlight">真正改变命运的层次</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>为什么是现在？</h2>
+        <div class="content-box">
+            <p><span class="highlight">2024-2026年是AI应用的黄金窗口期。</span></p>
+            <p>技术已经成熟到普通人能用，但还没有普及到人人都会。这个窗口期可能只有2-3年。</p>
+            <ul>
+                <li>2010-2012年的微信公众号</li>
+                <li>2016-2018年的短视频</li>
+                <li>2024-2026年的AI应用 ← 我们在这里</li>
+            </ul>
+            <p class="highlight">你比别人早半年入场，可能就是完全不同的人生轨迹。</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>【法】四维能力提升框架</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>💰 赚钱能力</h3>
+                <ul>
+                    <li>短期：接单变现</li>
+                    <li>中期：个人IP</li>
+                    <li>长期：商业模式</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🤝 人际关系</h3>
+                <ul>
+                    <li>打动人心的文案</li>
+                    <li>社交数据分析</li>
+                    <li>高质量社交内容</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎯 专业技能</h3>
+                <ul>
+                    <li>学习效率×10</li>
+                    <li>工作效率×10</li>
+                    <li>创作能力×10</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>📢 社会影响力</h3>
+                <ul>
+                    <li>个人品牌</li>
+                    <li>作品集</li>
+                    <li>专业声誉</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>三步破局法</h2>
+        <div class="content-box">
+            <h3>第一步：找到你的AI应用场景</h3>
+            <p>不要泛泛地学AI，要找到你最需要的那个点。是写论文？做PPT？找实习？做副业？</p>
+
+            <h3>第二步：掌握提示词工程</h3>
+            <p>90%的人用AI效果不好，不是AI不行，是不会说话。</p>
+
+            <h3>第三步：构建你的AI工作流</h3>
+            <p>把AI嵌入到你的日常工作中，形成习惯。</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>避坑指南</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>❌ 坑1：期望过高</h3>
+                <p>AI不是魔法，不能一键解决所有问题。它是放大器，放大你的能力。</p>
+            </div>
+            <div class="card">
+                <h3>❌ 坑2：依赖过度</h3>
+                <p>不要让AI替你思考，要让AI帮你思考。你的判断力、创造力才是核心竞争力。</p>
+            </div>
+            <div class="card">
+                <h3>❌ 坑3：闭门造车</h3>
+                <p>AI发展太快，一个人摸索效率太低。加入社群，跟着有经验的人学。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>【术】提示词的五个要素</h2>
+        <div class="content-box">
+            <ul>
+                <li><span class="highlight">角色定位</span>："你是一个资深的XXX专家"</li>
+                <li><span class="highlight">任务描述</span>："请帮我完成XXX任务"</li>
+                <li><span class="highlight">背景信息</span>："我的情况是XXX"</li>
+                <li><span class="highlight">输出要求</span>："请按照XXX格式输出"</li>
+                <li><span class="highlight">示例参考</span>："比如XXX这样"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>常用AI工具矩阵</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>📝 文本生成</h3>
+                <p>ChatGPT、Claude、文心一言</p>
+            </div>
+            <div class="card">
+                <h3>🎨 图像生成</h3>
+                <p>Midjourney、Stable Diffusion、DALL-E</p>
+            </div>
+            <div class="card">
+                <h3>🎬 视频制作</h3>
+                <p>Runway、Pika、剪映</p>
+            </div>
+            <div class="card">
+                <h3>📊 数据分析</h3>
+                <p>ChatGPT Code Interpreter、Cursor</p>
+            </div>
+            <div class="card">
+                <h3>🧠 知识管理</h3>
+                <p>Notion AI、Obsidian + AI插件</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>实战案例：如何用AI写出10万+爆款文案</h2>
+        <div class="content-box">
+            <ul>
+                <li>用AI分析爆款文章的共同特征</li>
+                <li>用AI生成10个标题，选出最好的3个</li>
+                <li>用AI扩写大纲，形成完整文章</li>
+                <li>用AI优化细节，增加金句和案例</li>
+                <li>用AI生成配图和排版建议</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>【器】必备工具清单</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>AI对话工具</h3>
+                <p>ChatGPT Plus（必备）<br>Claude Pro（推荐）</p>
+            </div>
+            <div class="card">
+                <h3>提示词管理</h3>
+                <p>Notion<br>飞书文档</p>
+            </div>
+            <div class="card">
+                <h3>自动化工具</h3>
+                <p>Zapier<br>Make</p>
+            </div>
+            <div class="card">
+                <h3>浏览器插件</h3>
+                <p>Sider、Monica<br>ChatGPT Sidebar</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>变现渠道</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>接单平台</h3>
+                <p>猪八戒、Fiverr、Upwork</p>
+            </div>
+            <div class="card">
+                <h3>内容平台</h3>
+                <p>公众号、小红书、知乎</p>
+            </div>
+            <div class="card">
+                <h3>知识付费</h3>
+                <p>知识星球、小报童、飞书文档</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h2>【行动清单】</h2>
+        <div class="action-list">
+            <h3>立即行动（今天就做）</h3>
+            <ul>
+                <li>注册ChatGPT或Claude账号，完成第一次对话</li>
+                <li>用AI写一篇500字的自我介绍</li>
+                <li>加入课程社群，认识3个同学</li>
+            </ul>
+        </div>
+        <div class="action-list">
+            <h3>本周行动</h3>
+            <ul>
+                <li>完成第一周的课程学习</li>
+                <li>用AI完成一个实际任务（作业、文案、PPT等）</li>
+                <li>整理自己的AI工具箱和提示词库</li>
+            </ul>
+        </div>
+        <div class="action-list">
+            <h3>本月行动</h3>
+            <ul>
+                <li>用AI完成一个完整项目（论文、作品集、副业项目）</li>
+                <li>在社交平台发布一篇AI应用心得</li>
+                <li>尝试用AI赚到第一笔收入（哪怕只有100元）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <h1>核心洞察</h1>
+        <div class="content-box">
+            <p style="font-size: 1.5rem; text-align: center;">AI不是未来，是现在。</p>
+            <p style="font-size: 1.5rem; text-align: center;">不是要不要学的问题，是要不要被时代抛弃的问题。</p>
+            <p style="font-size: 2rem; text-align: center; margin-top: 3rem;" class="highlight">AI时代，你的竞争对手不是AI，是那些会用AI的人。</p>
+        </div>
+    </div>
+
+    <script>
+        const progress = document.getElementById('progress');
+
+        // 炫酷鼠标光标 + 拖尾效果
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // 每隔一段距离创建拖尾粒子
+            if (Math.random() > 0.7) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX - 4 + 'px';
+                trail.style.top = e.clientY - 4 + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 800);
+            }
+        });
+
+        // 平滑跟随鼠标
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.left = cursorX - 15 + 'px';
+            cursor.style.top = cursorY - 15 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // 粒子效果
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // 滚动进度条
+        function updateProgress() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            progress.style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    </script>
+</body>
+</html>
